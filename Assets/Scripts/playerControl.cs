@@ -58,7 +58,7 @@ public class playerControl : MonoBehaviour
     bool GroundCheck()
     {
         //creates boxcast below the cube to check if it is on the ground
-        if (Physics.BoxCast(transform.position - (1/2*transform.lossyScale), boxSize, -transform.up, transform.rotation, maxDistance, layerMask))
+        if (Physics.BoxCast(transform.position - transform.up * 0.9f, boxSize, -transform.up, transform.rotation, maxDistance, layerMask))
         {
             Debug.Log("boxcast true");
             return true;
@@ -68,5 +68,15 @@ public class playerControl : MonoBehaviour
             Debug.Log("boxcast false");
             return false;
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        //Draw a Ray forward from GameObject toward the maximum distance
+        Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
+        //Draw a cube at the maximum distance
+        Gizmos.DrawWireCube(transform.position - transform.up * 0.9f, boxSize);
     }
 }
