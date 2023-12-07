@@ -7,6 +7,9 @@ public class playerControl : MonoBehaviour
 
     public float speed;
 
+    private float forBack;
+    private float leftRight;
+
 
     public Vector3 boxSize;
     public float maxDistance;
@@ -14,20 +17,27 @@ public class playerControl : MonoBehaviour
     public float jumpSpeed;
     public float mouseSpeed;
 
+    [SerializeField] private float dashCooldown;
+    private CooldownTimer dashTimer;
+
+    public float dashSpeed;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        dashTimer = new CooldownTimer(this, dashCooldown);
+        dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
     }
 
     // Update is called once per frame
     void Update()
     {
         //wasd keys
-        float forBack = Input.GetAxis("Vertical") * speed;
-        float leftRight = Input.GetAxis("Horizontal") * speed;
+        forBack = Input.GetAxis("Vertical") * speed;
+        leftRight = Input.GetAxis("Horizontal") * speed;
 
         //mouse rotation
         //float v = mouseSpeed * -Input.GetAxis("Mouse Y");
@@ -37,11 +47,12 @@ public class playerControl : MonoBehaviour
         // jump
         if (Input.GetKeyDown(KeyCode.Space) && GroundCheck())
         {
-            Debug.Log("jump true");
             rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
-
         }
-
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dashTimer.Activate();
+        }
 
         forBack *= Time.deltaTime;
         leftRight *= Time.deltaTime;
@@ -66,5 +77,11 @@ public class playerControl : MonoBehaviour
         {
             return false;
         }
+    }
+
+    void Dash() 
+    {
+        leftRight = 0;
+        rb.AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
     }
 }
