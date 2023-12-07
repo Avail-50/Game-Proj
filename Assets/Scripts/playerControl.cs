@@ -7,6 +7,9 @@ public class playerControl : MonoBehaviour
 
     public float speed;
 
+    private float forBack;
+    private float leftRight;
+
 
     public Vector3 boxSize;
     public float maxDistance;
@@ -16,6 +19,8 @@ public class playerControl : MonoBehaviour
 
     [SerializeField] private float dashCooldown;
     private CooldownTimer dashTimer;
+
+    public float dashSpeed;
 
     Rigidbody rb;
 
@@ -31,8 +36,8 @@ public class playerControl : MonoBehaviour
     void Update()
     {
         //wasd keys
-        float forBack = Input.GetAxis("Vertical") * speed;
-        float leftRight = Input.GetAxis("Horizontal") * speed;
+        forBack = Input.GetAxis("Vertical") * speed;
+        leftRight = Input.GetAxis("Horizontal") * speed;
 
         //mouse rotation
         //float v = mouseSpeed * -Input.GetAxis("Mouse Y");
@@ -44,9 +49,9 @@ public class playerControl : MonoBehaviour
         {
             rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer.Activate())
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Dash();
+            dashTimer.Activate();
         }
 
         forBack *= Time.deltaTime;
@@ -74,5 +79,9 @@ public class playerControl : MonoBehaviour
         }
     }
 
-    void Dash() => Debug.Log("dash");
+    void Dash() 
+    {
+        leftRight = 0;
+        rb.AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
+    }
 }
