@@ -60,12 +60,10 @@ public class playerControl : MonoBehaviour
         //creates boxcast below the cube to check if it is on the ground
         if (Physics.BoxCast(transform.position - transform.up * 0.7f, boxSize, -transform.up, transform.rotation, maxDistance, layerMask))
         {
-            Debug.Log("boxcast true");
             return true;
         }
         else
         {
-            Debug.Log("boxcast false");
             return false;
         }
     }
