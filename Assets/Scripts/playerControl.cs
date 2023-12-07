@@ -14,12 +14,17 @@ public class playerControl : MonoBehaviour
     public float jumpSpeed;
     public float mouseSpeed;
 
+    [SerializeField] private float dashCooldown;
+    private CooldownTimer dashTimer;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        dashTimer = new CooldownTimer(this, dashCooldown);
+        dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
     }
 
     // Update is called once per frame
@@ -37,11 +42,12 @@ public class playerControl : MonoBehaviour
         // jump
         if (Input.GetKeyDown(KeyCode.Space) && GroundCheck())
         {
-            Debug.Log("jump true");
             rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
-
         }
-
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer.Activate())
+        {
+            Dash();
+        }
 
         forBack *= Time.deltaTime;
         leftRight *= Time.deltaTime;
@@ -67,4 +73,6 @@ public class playerControl : MonoBehaviour
             return false;
         }
     }
+
+    void Dash() => Debug.Log("dash");
 }

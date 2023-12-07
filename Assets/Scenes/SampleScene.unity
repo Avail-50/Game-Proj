@@ -623,6 +623,7 @@ MonoBehaviour:
     m_Bits: 8
   jumpSpeed: 6
   mouseSpeed: 3
+  dashCooldown: 10
 --- !u!54 &1306616184
 Rigidbody:
   m_ObjectHideFlags: 0

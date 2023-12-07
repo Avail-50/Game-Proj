@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\VertRot.cs" />
     <Compile Include="Assets\Scripts\playerControl.cs" />
+    <Compile Include="Assets\Scripts\CooldownTimer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
