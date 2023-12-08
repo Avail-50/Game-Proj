@@ -100,7 +100,7 @@ public class playerControl : MonoBehaviour
 
     void Dash() 
     {
-        leftRight = 0;
+        //leftRight = 0;
         rb.AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
     }
 }
