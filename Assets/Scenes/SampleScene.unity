@@ -722,7 +722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   boxSize: {x: 0.8, y: 0, z: 0.8}
-  maxDistance: 2
+  maxDistance: 0.45
   layerMask:
     serializedVersion: 2
     m_Bits: 8
