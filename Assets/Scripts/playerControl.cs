@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class playerControl : MonoBehaviour
 {
-
-    public float speed;
-
+    //movement
+    public float moveSpeed;
+    public Transform orientation;
     private float forBack;
     private float leftRight;
+    private Vector3 mDirection;
+    public float groundDrag;
 
-
+    //jump + groundCheck
     public Vector3 boxSize;
     public float maxDistance;
     public LayerMask layerMask;
     public float jumpSpeed;
-    public float mouseSpeed;
+    private bool grounded;
 
+    //dash
     [SerializeField] private float dashCooldown;
     private CooldownTimer dashTimer;
-
     public float dashSpeed;
 
     Rigidbody rb;
@@ -28,6 +30,9 @@ public class playerControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+
+        //Dash cooldown
         dashTimer = new CooldownTimer(this, dashCooldown);
         dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
     }
@@ -35,17 +40,20 @@ public class playerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //locking and unlocking cursor
+        if (Input.GetKey(KeyCode.Escape))
+            Cursor.lockState = CursorLockMode.None;
+        else if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
+            Cursor.lockState = CursorLockMode.Locked;
+
         //wasd keys
-        forBack = Input.GetAxis("Vertical") * speed;
-        leftRight = Input.GetAxis("Horizontal") * speed;
+        forBack = Input.GetAxisRaw("Vertical");
+        leftRight = Input.GetAxisRaw("Horizontal");
 
-        //mouse rotation
-        //float v = mouseSpeed * -Input.GetAxis("Mouse Y");
-        float h = mouseSpeed * Input.GetAxis("Mouse X");
-        //float angle = (v + h)
-
+        grounded = GroundCheck();
+        
         // jump
-        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck())
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
         }
@@ -53,17 +61,23 @@ public class playerControl : MonoBehaviour
         {
             dashTimer.Activate();
         }
+        
+        //drag
+        if (grounded)
+        {
+            rb.drag = groundDrag;
+        }
+        else
+        {
+            rb.drag = 0;
+        }
+    }
 
-        forBack *= Time.deltaTime;
-        leftRight *= Time.deltaTime;
-        transform.Translate(leftRight, 0, forBack);
-        transform.Rotate(0, h, 0, Space.Self);
-
-        //locking and unlocking cursor
-        if (Input.GetKey(KeyCode.Escape))
-            Cursor.lockState = CursorLockMode.None;
-        else if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
-            Cursor.lockState = CursorLockMode.Locked;
+    void FixedUpdate() 
+    {
+        //move
+        mDirection = orientation.forward * forBack + orientation.right * leftRight;
+        rb.AddForce(mDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 
     bool GroundCheck()
