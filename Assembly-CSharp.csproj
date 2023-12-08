@@ -61,8 +61,8 @@
     <Compile Include="Assets\Scripts\VertRot.cs" />
     <Compile Include="Assets\Scripts\playerControl.cs" />
     <Compile Include="Assets\Scripts\CooldownTimer.cs" />
-    <Compile Include="Assets\Scripts\CameraShader.cs" />
     <Compile Include="Assets\Scripts\Shaders\Ditherer1.cs" />
+    <Compile Include="Assets\Scripts\Shaders\CameraShader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Shaders\Dither.shader" />
