@@ -11,6 +11,7 @@ public class playerControl : MonoBehaviour
     private float leftRight;
     private Vector3 mDirection;
     public float groundDrag;
+    public float airDrag;
 
     //jump + groundCheck
     public Vector3 boxSize;
@@ -77,7 +78,11 @@ public class playerControl : MonoBehaviour
     {
         //move
         mDirection = orientation.forward * forBack + orientation.right * leftRight;
-        rb.AddForce(mDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        if (GroundCheck())
+            rb.AddForce(mDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        else if (!GroundCheck())
+            rb.AddForce(mDirection.normalized * moveSpeed * 10f * airDrag, ForceMode.Force);
+
     }
 
     bool GroundCheck()
