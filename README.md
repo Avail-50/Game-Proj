@@ -4,15 +4,15 @@ setting: inside steampunk
 
 ## Ava
 - [x] movement and camera clean up 
-- [] dash / slide
-- [] - wall movement ?
+- [ ] dash / slide
+- [ ] - wall movement ?
 
 ## Ellie
-- [] first map (ellie? + playtesting)
+- [ ] first map (ellie? + playtesting)
 
 ## Fia
-- [] swingin/grabber
-- [] roll
-- [] environment features - slide only on certain surfaces?
+- [ ] swingin/grabber
+- [ ] roll
+- [ ] environment features - slide only on certain surfaces?
 
  (if we work on momnetum for the swinging, we could have some type of fall damage? when fall, lose momentum unless roll)
