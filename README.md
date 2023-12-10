@@ -4,7 +4,7 @@ setting: inside steampunk
 
 ## Ava
 - [x] movement and camera clean up 
-- [ ] dash / slide
+- [x] dash / slide
 - [ ] - wall movement ?
 
 ## Ellie
