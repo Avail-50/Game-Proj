@@ -26,7 +26,6 @@ public class CooldownTimer
         if (ready == true)
         {
             ready = false;
-            Debug.Log("Dash True");
             mono.StartCoroutine(CountdownTimer());
             return true;
         }
