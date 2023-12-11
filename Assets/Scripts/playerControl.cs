@@ -13,7 +13,7 @@ public class playerControl : MonoBehaviour
     private Vector3 mDirection;
     public float groundDrag;
     public float airDrag;
-    public float speed; //displaying speed on the screen
+    public float curSpeed; //displaying speed on the screen
 
     //jump + groundCheck
     public Vector3 boxSize;
@@ -81,7 +81,7 @@ public class playerControl : MonoBehaviour
             rb.drag = 0;
         }
 
-        speed = rb.velocity.magnitude;
+        curSpeed = rb.velocity.magnitude;
         
     }
 

@@ -959,7 +959,7 @@ MonoBehaviour:
   orientation: {fileID: 720448654}
   groundDrag: 5
   airDrag: 0.01
-  speed: 0
+  curSpeed: 0
   boxSize: {x: 1, y: 0, z: 1}
   maxDistance: 0.55
   layerMask:
