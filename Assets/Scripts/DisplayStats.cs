@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Display : MonoBehaviour
+public class DisplayStats : MonoBehaviour
 {
     public GameObject player;
     private playerControl speed;
