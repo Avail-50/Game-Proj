@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerControl : MonoBehaviour
 {
     //movement
+    public float startMoveSpeed;
     public float moveSpeed;
     public Transform orientation;
     private float forBack;
@@ -12,6 +13,7 @@ public class playerControl : MonoBehaviour
     private Vector3 mDirection;
     public float groundDrag;
     public float airDrag;
+    public float curSpeed; //displaying speed on the screen
 
     //jump + groundCheck
     public Vector3 boxSize;
@@ -33,6 +35,8 @@ public class playerControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        moveSpeed = startMoveSpeed;
+
         //Dash cooldown
         dashTimer = new CooldownTimer(this, dashCooldown);
         dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
@@ -53,14 +57,18 @@ public class playerControl : MonoBehaviour
 
         grounded = GroundCheck();
         
-        // jump
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        
+        if (Input.GetKeyDown(KeyCode.Space) && grounded) //jump
         {
             rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.LeftShift)) //dash
         {
             dashTimer.Activate();
+        }//else if (roll)
+        else if(grounded && (rb.velocity.magnitude == 0)) //resets momentum
+        {
+            moveSpeed = startMoveSpeed;
         }
         
         //drag
@@ -72,6 +80,9 @@ public class playerControl : MonoBehaviour
         {
             rb.drag = 0;
         }
+
+        curSpeed = rb.velocity.magnitude;
+        
     }
 
     void FixedUpdate() 
@@ -79,9 +90,9 @@ public class playerControl : MonoBehaviour
         //move
         mDirection = orientation.forward * forBack + orientation.right * leftRight;
         if (GroundCheck())
-            rb.AddForce(mDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(mDirection.normalized * moveSpeed, ForceMode.Force);
         else if (!GroundCheck())
-            rb.AddForce(mDirection.normalized * moveSpeed * 10f * airDrag, ForceMode.Force);
+            rb.AddForce(mDirection.normalized * moveSpeed * airDrag, ForceMode.Force);
 
     }
 
@@ -100,7 +111,7 @@ public class playerControl : MonoBehaviour
 
     void Dash() 
     {
-        leftRight = 0;
-        rb.AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
+        moveSpeed += 5;
+        rb.AddForce(orientation.forward * dashSpeed, ForceMode.Impulse);
     }
 }
