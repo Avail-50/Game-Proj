@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerControl : MonoBehaviour
 {
     //movement
-    public float startMoveSpeed;
+    public float startMoveSpeed; //only used when dashing
     public float moveSpeed;
     public Transform orientation;
     private float forBack;
@@ -14,7 +14,7 @@ public class playerControl : MonoBehaviour
     public float groundDrag;
     public float airDrag;
     public float curSpeed; //displaying speed on the screen
-
+    
     //jump + groundCheck
     public Vector3 boxSize;
     public float maxDistance;
