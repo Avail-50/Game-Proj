@@ -28,6 +28,8 @@ public class playerControl : MonoBehaviour
     public float dashSpeed;
 
     Rigidbody rb;
+    Animator animator;
+    public GameObject character;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,8 @@ public class playerControl : MonoBehaviour
         //Dash cooldown
         dashTimer = new CooldownTimer(this, dashCooldown);
         dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
+
+        animator = character.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -54,6 +58,10 @@ public class playerControl : MonoBehaviour
         //wasd keys
         forBack = Input.GetAxisRaw("Vertical");
         leftRight = Input.GetAxisRaw("Horizontal");
+
+        if (forBack != 0 || leftRight != 0)
+            animator.SetInteger("State", 1);
+        else animator.SetInteger("State", 0);
 
         grounded = GroundCheck();
         

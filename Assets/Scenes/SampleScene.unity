@@ -970,6 +970,7 @@ MonoBehaviour:
   jumpSpeed: 18
   dashCooldown: 3
   dashSpeed: 20
+  character: {fileID: 1657137301}
 --- !u!1 &1469353180
 GameObject:
   m_ObjectHideFlags: 0
