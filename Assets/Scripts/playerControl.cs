@@ -26,6 +26,9 @@ public class playerControl : MonoBehaviour
     [SerializeField] private float dashCooldown;
     private CooldownTimer dashTimer;
     public float dashSpeed;
+//    private CooldownTimer dashLengthTimer;
+//    public float dashLength;
+    bool dashing = false;
 
     Rigidbody rb;
     Animator animator;
@@ -42,6 +45,9 @@ public class playerControl : MonoBehaviour
         //Dash cooldown
         dashTimer = new CooldownTimer(this, dashCooldown);
         dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
+
+//        dashLengthTimer = new CooldownTime(this, dashLength);
+//        dashing = dashLengthTimer.OnStop += (object sender, System.EventArgs e) => false;
 
         animator = character.GetComponent<Animator>();
     }
@@ -80,7 +86,7 @@ public class playerControl : MonoBehaviour
         }
         
         //drag
-        if (grounded)
+        if (grounded && !dashing)
         {
             rb.drag = groundDrag;
         }
@@ -120,6 +126,14 @@ public class playerControl : MonoBehaviour
     void Dash() 
     {
         moveSpeed += 5;
+        //rb.velocity = Vector3.zero;   How to transfer all momentum to 1 other direction
+//        dashing = true;
+//        dashLengthTimer.OnStart += (object sender, System.EventArgs e) => Why;
         rb.AddForce(orientation.forward * dashSpeed, ForceMode.Impulse);
     }
+
+//    void Why()
+//    {
+//        dashing = true;
+//    }
 }
