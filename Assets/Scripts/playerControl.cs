@@ -29,6 +29,7 @@ public class playerControl : MonoBehaviour
 //    private CooldownTimer dashLengthTimer;
 //    public float dashLength;
     bool dashing = false;
+    public float momentum;
 
     Rigidbody rb;
     Animator animator;
@@ -97,6 +98,7 @@ public class playerControl : MonoBehaviour
 
         curSpeed = rb.velocity.magnitude;
         
+
     }
 
     void FixedUpdate() 
@@ -126,14 +128,8 @@ public class playerControl : MonoBehaviour
     void Dash() 
     {
         moveSpeed += 5;
-        //rb.velocity = Vector3.zero;   How to transfer all momentum to 1 other direction
-//        dashing = true;
-//        dashLengthTimer.OnStart += (object sender, System.EventArgs e) => Why;
-        rb.AddForce(orientation.forward * dashSpeed, ForceMode.Impulse);
+        momentum = (new Vector3(rb.velocity.x, 0, rb.velocity.z)).magnitude;
+        rb.AddForce((orientation.forward * dashSpeed) + (orientation.forward * momentum) - rb.velocity, ForceMode.Impulse);
     }
 
-//    void Why()
-//    {
-//        dashing = true;
-//    }
 }
