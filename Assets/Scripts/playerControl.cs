@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerControl : MonoBehaviour
 {
     //movement
-    public float startMoveSpeed;
+    public float startMoveSpeed; //only used when dashing
     public float moveSpeed;
     public Transform orientation;
     private float forBack;
@@ -14,7 +14,7 @@ public class playerControl : MonoBehaviour
     public float groundDrag;
     public float airDrag;
     public float curSpeed; //displaying speed on the screen
-
+    
     //jump + groundCheck
     public Vector3 boxSize;
     public float maxDistance;
@@ -26,6 +26,10 @@ public class playerControl : MonoBehaviour
     [SerializeField] private float dashCooldown;
     private CooldownTimer dashTimer;
     public float dashSpeed;
+//    private CooldownTimer dashLengthTimer;
+//    public float dashLength;
+    bool dashing = false;
+    public float momentum;
 
     Rigidbody rb;
     Animator animator;
@@ -42,6 +46,9 @@ public class playerControl : MonoBehaviour
         //Dash cooldown
         dashTimer = new CooldownTimer(this, dashCooldown);
         dashTimer.OnStart += (object sender, System.EventArgs e) => Dash();
+
+//        dashLengthTimer = new CooldownTime(this, dashLength);
+//        dashing = dashLengthTimer.OnStop += (object sender, System.EventArgs e) => false;
 
         animator = character.GetComponent<Animator>();
     }
@@ -80,7 +87,7 @@ public class playerControl : MonoBehaviour
         }
         
         //drag
-        if (grounded)
+        if (grounded && !dashing)
         {
             rb.drag = groundDrag;
         }
@@ -91,6 +98,7 @@ public class playerControl : MonoBehaviour
 
         curSpeed = rb.velocity.magnitude;
         
+
     }
 
     void FixedUpdate() 
@@ -120,6 +128,8 @@ public class playerControl : MonoBehaviour
     void Dash() 
     {
         moveSpeed += 5;
-        rb.AddForce(orientation.forward * dashSpeed, ForceMode.Impulse);
+        momentum = (new Vector3(rb.velocity.x, 0, rb.velocity.z)).magnitude;
+        rb.AddForce((orientation.forward * dashSpeed) + (orientation.forward * momentum) - rb.velocity, ForceMode.Impulse);
     }
+
 }
