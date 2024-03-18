@@ -97,7 +97,8 @@ public class playerControl : MonoBehaviour
         }
 
         curSpeed = rb.velocity.magnitude;
-        
+        momentum = (new Vector3(rb.velocity.x, 0, rb.velocity.z)).magnitude;
+
 
     }
 
@@ -128,7 +129,7 @@ public class playerControl : MonoBehaviour
     void Dash() 
     {
         moveSpeed += 5;
-        momentum = (new Vector3(rb.velocity.x, 0, rb.velocity.z)).magnitude;
+        
         rb.AddForce((orientation.forward * dashSpeed) + (orientation.forward * momentum) - rb.velocity, ForceMode.Impulse);
     }
 

@@ -357,6 +357,7 @@
 "Assets/Scripts/CameraRot.cs"
 "Assets/Scripts/CooldownTimer.cs"
 "Assets/Scripts/DisplayStats.cs"
+"Assets/Scripts/headBob.cs"
 "Assets/Scripts/playerControl.cs"
 "Assets/Scripts/Shaders/CameraShader.cs"
 "Assets/Scripts/Shaders/Ditherer1.cs"
