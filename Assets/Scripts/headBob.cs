@@ -7,6 +7,7 @@ public class headBob : MonoBehaviour
 
     public float bobSpeed;
     public float bobAmount;
+    public float speed;
     public playerControl playerControl;
 
     float defaultY = 0;
@@ -21,7 +22,7 @@ public class headBob : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (playerControl.momentum > 1f)
+        if (playerControl.momentum > 1f && playerControl.grounded)
         {
             timer += bobSpeed;
             transform.localPosition = new Vector3(transform.localPosition.x, defaultY + Mathf.Sin(timer) * bobAmount, transform.localPosition.z);
@@ -29,7 +30,8 @@ public class headBob : MonoBehaviour
         else
         {
             timer = 0;
-            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultY, Time.deltaTime * bobSpeed), transform.localPosition.z);
+            //transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultY, Time.deltaTime * bobSpeed), transform.localPosition.z);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, new Vector3(transform.localPosition.x, defaultY, transform.localPosition.z), speed);
         }
     }
 }

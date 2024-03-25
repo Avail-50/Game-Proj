@@ -2208,6 +2208,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1606959772121338841, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
   m_PrefabInstance: {fileID: 7905062947899555991}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1306616182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6713883315452783069, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
+  m_PrefabInstance: {fileID: 7905062947899555991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306616181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb5aaf56d7e3fd48af4af61bee95cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469353180
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,6 +3060,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Body
       objectReference: {fileID: 0}
+    - target: {fileID: 3316639873375963516, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316639873375963516, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
+      propertyPath: bobSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316639873375963516, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
+      propertyPath: bobAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316639873375963516, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
+      propertyPath: playerControl
+      value: 
+      objectReference: {fileID: 1306616182}
     - target: {fileID: 6899197624732819383, guid: ecc4bcf424881134c98fcc1474dec8da, type: 3}
       propertyPath: m_LocalPosition.x
       value: -46.18

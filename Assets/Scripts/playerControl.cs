@@ -20,7 +20,7 @@ public class playerControl : MonoBehaviour
     public float maxDistance;
     public LayerMask layerMask;
     public float jumpSpeed;
-    private bool grounded;
+    public bool grounded;
 
     //dash
     [SerializeField] private float dashCooldown;
